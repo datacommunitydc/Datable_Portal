@@ -1,0 +1,6 @@
+__pycache__/
+.idea
+tmp
+*.pyc
+*.log
+db.sqlite3
