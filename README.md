@@ -49,4 +49,10 @@ $ python manage.py runserver
 http://localhost:8000
 ```
 
+
+* Access the login with the url
+```sh 
+http://localhost:8000/accounts/login/
+```
+
 :+1: :+1: :+1: :+1:
