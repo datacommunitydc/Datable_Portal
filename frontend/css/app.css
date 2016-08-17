@@ -1,0 +1,12 @@
+.icon {
+  height: 30px;
+  width: 30px;
+  border: none;
+  outline: 0px;
+  cursor: pointer;
+}
+
+.linkedin {
+  background: #4875B4;
+  color: white;
+}

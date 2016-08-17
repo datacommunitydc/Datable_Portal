@@ -4,3 +4,4 @@ tmp
 *.pyc
 *.log
 db.sqlite3
+frontend/node_modules
