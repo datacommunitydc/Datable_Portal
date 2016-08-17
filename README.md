@@ -30,7 +30,7 @@ $ cd Datable_Portal/backend
 ```
 * install requirements.txt
 ```sh
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 * sync database 
 ```sh
@@ -53,6 +53,27 @@ http://localhost:8000
 * Access the login with the url
 ```sh 
 http://localhost:8000/accounts/login/
+```
+
+#### Frontend Setup Guide
+
+* go to frontend folder
+```sh
+$ cd Datable_Portal/frontend
+```
+
+* install node packages
+```sh
+$ npm install
+```
+* start frontend server
+```sh
+$ npm start
+```
+
+* Access the frontend at 
+```sh
+http://localhost:3000
 ```
 
 :+1: :+1: :+1: :+1:
