@@ -1,5 +1,6 @@
 module.exports = {
   LINKEDIN: {
-    CLIENT_ID: '78w1xb2rbk7tw6'
+    CLIENT_ID: '81mns0tgb37nzf',
+    CLIENT_SECRET: '2RCcLlKZyGAbBzWO'
   }
 }
