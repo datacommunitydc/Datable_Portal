@@ -20,3 +20,14 @@ header {
   text-align: center;
   font-weight: bold;
 }
+
+.user-details {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  float: right;
+}
+
+.marginT10 {
+  margin-top: 10px;
+}
