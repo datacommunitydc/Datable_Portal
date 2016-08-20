@@ -1,0 +1,33 @@
+.icon {
+  height: 30px;
+  width: 30px;
+  border: none;
+  outline: 0px;
+  cursor: pointer;
+}
+
+.linkedin {
+  background: #4875B4;
+  color: white;
+}
+
+header {
+  padding: 10px 0px;
+}
+
+.header-title {
+  font-size: 2.4em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.user-details {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  float: right;
+}
+
+.marginT10 {
+  margin-top: 10px;
+}
