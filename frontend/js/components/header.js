@@ -1,23 +1,32 @@
 var React = require('react');
-var Auth = require('../services/auth');
-var Link = require('react-router').Link;
+var AuthStore = require('../stores/auth');
+var AuthAction = require('../actions/auth');
+
+function getStates() {
+  return {
+      loggedIn: AuthStore.loggedIn()
+  };
+}
 
 var header = React.createClass({
   getInitialState() {
-    return {
-      loggedIn: Auth.loggedIn()
-    }
+    return getStates(); 
   },
 
-  updateAuth(loggedIn) {
-    this.setState({
-      loggedIn
-    })
+  contextTypes: {
+    // router: React.PropTypes.object.isRequired
   },
 
-  componentWillMount() {
-    Auth.onChange = this.updateAuth
-    Auth.login()
+  componentDidMount: function(callback) {
+    AuthStore.addChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+     this.setState(getStates());
+  },
+
+  logOut: function () {
+    AuthAction.logOut();
   },
 
   render: function() {
@@ -26,19 +35,13 @@ var header = React.createClass({
         <div className='header-title'>Datable</div>
         <div className="user-details">
           { this.state.loggedIn ? (
-              <a href="#" onClick={this.logout}>Logout</a>
+              <a href="#" onClick={this.logOut}>Logout</a>
             ) : (
               <a href="/login">Sign In</a>
             ) }
         </div>
       </header>
     );
-  },
-
-  logout: function () {
-    Auth.logout(function() {
-
-    });
   }
 });
 
