@@ -28,6 +28,15 @@ header {
   float: right;
 }
 
+.login-container {
+  width: 40%;
+  margin: 0px auto;
+}
+
+.center {
+  text-align: center;
+}
+
 .marginT10 {
   margin-top: 10px;
 }

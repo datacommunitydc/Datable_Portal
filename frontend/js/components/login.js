@@ -1,42 +1,36 @@
 var Linkedin = require('./linkedin');
 var React = require('react');
 var BrowserHistory = require('react-router').browserHistory;
-var Auth = require('../services/auth');
+var AuthAction = require('../actions/auth');
+var AuthStore = require('../stores/auth');
 
 var Login = React.createClass({
-  getInitialState() {
-    return {
-        error: false
-    }
+  contextTypes: {
+      router: React.PropTypes.object.isRequired
   },
 
-  handleSubmit(event) {
-      event.preventDefault()
+  handleSubmit: function(e) {
+      e.preventDefault()
 
-      const email = this.refs.email.value
-      const pass = this.refs.pass.value
+      var username = this.refs.username.value
+      var password = this.refs.password.value
 
-      Auth.login(email, pass, (loggedIn) => {
-        if (!loggedIn)
-          return this.setState({ error: true })
-
-        BrowserHistory.push({
-            pathname: '/'
-        })
-      })
+      AuthAction.logIn(username, password).then(() => {
+        this.context.router.replace('/');
+      });
   },
 
   render: function() {
     return (
-      <div className="col-md-4">
+      <div className="login-container">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group"> 
             <label>Username: </label>
-            <input ref="email" placeholder="Username" className="form-control" defaultValue="" />
+            <input ref="username" placeholder="Username" className="form-control" defaultValue="" />
           </div>
           <div className="form-group">
             <label>Password: </label>
-            <input ref="pass" placeholder="password" className="form-control" />
+            <input ref="password" placeholder="password" className="form-control" />
           </div>
           <button className="btn btn-default" type="submit">Login</button>
         </form>

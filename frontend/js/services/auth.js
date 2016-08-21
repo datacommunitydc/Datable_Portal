@@ -1,49 +1,57 @@
+var WebAPI = require('../utils/webapi.utils');
+var AuthTypes = require('../constants/socialauth').AUTH_TYPES;
+
 module.exports = {
-  login(email, pass, cb) {
-    cb = arguments[arguments.length - 1]
-    if (localStorage.token) {
-      if (cb) cb(true)
-      this.onChange(true)
-      return
-    }
-    pretendRequest(email, pass, (res) => {
-      if (res.authenticated) {
-        localStorage.token = res.token
-        if (cb) cb(true)
-        this.onChange(true)
-      } else {
-        if (cb) cb(false)
-        this.onChange(false)
-      }
-    })
-  },
+    logIn: function(username, pass) {
+      var promise = new Promise((resolve, reject) => {
+        if (localStorage.token) {
+            resolve();
+        }
 
-  getToken() {
-    return localStorage.token
-  },
-
-  logout(cb) {
-    delete localStorage.token
-    if (cb) cb()
-    this.onChange(false)
-  },
-
-  loggedIn() {
-    return !!localStorage.token
-  },
-
-  onChange() {}
-}
-
-function pretendRequest(email, pass, cb) {
-  setTimeout(() => {
-    if (email === 'abc' && pass === 'xyz') {
-      cb({
-        authenticated: true,
-        token: Math.random().toString(36).substring(7)
+        WebAPI.logIn(username, pass).then((res) => {
+          localStorage.token = res.token;
+          localStorage.auth_type = AuthTypes.LOCAL;
+          resolve();
+        }, (err) => {
+          reject(err)
+        });
       })
-    } else {
-      cb({ authenticated: false })
+        
+      return promise;
+    },        
+    
+    logOut: function() {
+      var promise = new Promise((resolve, reject) => {
+        WebAPI.logOut(localStorage.auth_type).then(() => {
+          delete localStorage.token;
+          delete localStorage.auth_type;
+          resolve();
+        }, (err) => {
+          console.log(err);
+          reject();
+        })
+      });
+
+      return promise;
+    },
+
+    loggedIn: function() {
+        return !!localStorage.token
+    },
+
+    socialLogIn: function (type) {
+      switch(type) {
+        case AuthTypes.LINKEDIN:
+          var promise = new Promise((resolve, reject) => {
+            localStorage.token = 'xyz';
+            localStorage.auth_type = AuthTypes.LINKEDIN;
+            resolve();
+          });
+          return promise;
+      }
+    },
+
+    getUser() {
+
     }
-  }, 0)
 }
