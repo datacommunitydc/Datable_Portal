@@ -1,12 +1,19 @@
 var AuthTypes = require('../constants/socialauth').AUTH_TYPES;
+var baseUrl = require('../constants/webapi').BaseUrl;
 var request = require('superagent');
 
 module.exports = {
     logIn: function (username, password) {
         var promise = new Promise((resolve, reject) => {
-            resolve({
-                token: 'xyz'
-            })
+            request.post(baseUrl + '/accounts/login/')
+                .send({username: username, password: password})
+                .end(function(err, res){
+                    if (err || !res.ok) {
+                        reject();
+                    } else {
+                        resolve();
+                    }
+                });
         });
 
         return promise;
@@ -24,9 +31,27 @@ module.exports = {
             default:
                 break;
         }
+
+        return new Promise((resolve, reject) => reject());
     },
 
-    getUser() {
+    getUser: function () {
 
-    }
+    },
+
+    register: function (username, email, password) {
+        var promise = new Promise((resolve, reject) => {
+            request.post(baseUrl + '/accounts/signup/')
+                .send({username: username, password: password, email: email})
+                .end(function(err, res){
+                    if (err || !res.ok) {
+                        reject();
+                    } else {
+                        resolve();
+                    }
+                });
+        });
+        
+        return promise;
+    },
 };

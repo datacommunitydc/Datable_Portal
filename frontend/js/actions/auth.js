@@ -48,5 +48,15 @@ module.exports = {
     });
 
     return promise;
-  }
+  },
+
+  register: function(username, email, password) {
+    var promise = new Promise((resolve, reject) => {
+        Auth.register(username, email, password).then(() => {
+            resolve();
+        }, () => { reject() });
+    });
+
+    return promise;
+  },
 }

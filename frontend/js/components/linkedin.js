@@ -17,7 +17,7 @@ var linkedin = React.createClass({
 
   render: function() {
     return (
-      <script type="in/Login" data-onAuth= { this.onAuthentication }></script>
+      <script type="in/Login"></script>
     );
   },
 

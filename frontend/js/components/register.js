@@ -1,10 +1,9 @@
 var Linkedin = require('./linkedin');
 var React = require('react');
-var BrowserHistory = require('react-router').browserHistory;
 var AuthAction = require('../actions/auth');
 var AuthStore = require('../stores/auth');
 
-var Login = React.createClass({
+var Register = React.createClass({
   contextTypes: {
       router: React.PropTypes.object.isRequired
   },
@@ -13,10 +12,13 @@ var Login = React.createClass({
       e.preventDefault()
 
       var username = this.refs.username.value
+      var email = this.refs.email.value
       var password = this.refs.password.value
 
-      AuthAction.logIn(username, password).then(() => {
-        this.context.router.replace('/');
+      AuthAction.register(username, email, password).then(() => {
+        AuthAction.logIn(username, password).then(() => {
+            this.context.router.replace('/');
+        });
       });
   },
 
@@ -28,21 +30,19 @@ var Login = React.createClass({
             <label>Username: </label>
             <input ref="username" placeholder="Username" className="form-control" defaultValue="" required/>
           </div>
+          <div className="form-group"> 
+            <label>Email: </label>
+            <input type="email" ref="email" placeholder="Email" className="form-control" defaultValue="" required/>
+          </div>
           <div className="form-group">
             <label>Password: </label>
             <input type="password" ref="password" placeholder="password" className="form-control" required/>
           </div>
-          <button className="btn btn-default" type="submit">Login</button>
+          <button className="btn btn-default" type="submit">Sign Up</button>
         </form>
-        <div className="marginT10">
-          <a href="/register">New User? Create Account</a>
-        </div>
-        <div className="marginT10">
-            <Linkedin />
-        </div>
       </div>
     );
   }
 });
 
-module.exports = Login;
+module.exports = Register;

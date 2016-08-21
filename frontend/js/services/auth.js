@@ -53,5 +53,9 @@ module.exports = {
 
     getUser() {
 
+    },
+
+    register(username, email, password) {
+      return WebAPI.register(username, email, password);
     }
 }

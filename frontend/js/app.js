@@ -7,6 +7,7 @@ var browserHistory = ReactRouter.browserHistory;
 var Header = require('./components/header');
 var Footer = require('./components/footer');
 var Login = require('./components/login');
+var Register = require('./components/register');
 var Home = require('./components/home');
 var WebAPIUtils = require('./utils/webapi.utils.js');
 var Auth = require('./services/auth');
@@ -34,6 +35,7 @@ ReactDom.render(
     <Router history={browserHistory}>
       <Route path='/' component={Home} onEnter={requireAuth}  />
       <Route path='/login' component={Login} onEnter={isAuthenticated} />
+      <Route path='/register' component={Register} onEnter={isAuthenticated} />
     </Router>
     <Footer />
   </div>,
