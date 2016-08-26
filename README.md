@@ -65,6 +65,7 @@ $ cd Datable_Portal/frontend
 * install node packages
 ```sh
 $ npm install
+$ npm install --python=python2.7
 ```
 * start frontend server
 ```sh
