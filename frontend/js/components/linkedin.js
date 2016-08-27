@@ -8,29 +8,44 @@ var linkedin = React.createClass({
   },
 
   componentDidMount: function () {
-    //IN.Event.on(IN, "auth", this.onAuthentication);      
+    //IN.Event.on(IN, "auth", this.onAuthentication);
     IN.init({
-        api_key: SocialConstants.LINKEDIN.CLIENT_ID,
-        authorize: true
+        api_key: SocialConstants.LINKEDIN.CLIENT_ID
     });
   },
 
   render: function() {
     return (
-      <script type="in/Login"></script>
+      <button className="icon linkedin" onClick={this.authenticate}><i className="fa fa-linkedin" aria-hidden="true"></i></button>
     );
   },
 
-  onAuthentication() {
-      AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN).then(() => {
-        this.context.router.replace('/');
-      });
+  authenticate() {
+    var self = this;
+
+    IN.User.authorize(function() {
+      IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress)?format=json").result(onSuccess).error(onError);
+    }, this);
+
+    // Handle the successful return from the API call
+    function onSuccess(data) {
+      var userData = {
+        email: data.emailAddress,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        type: SocialConstants.AUTH_TYPES.LINKEDIN
+      }
+
+      AuthAction.socialLogIn(userData).then(() => {
+        self.context.router.replace('/');
+      })
+    }
+
+    // Handle an error response from the API call
+    function onError(error) {
+        console.log(error);
+    }
   }
 });
 
 module.exports = linkedin;
-    
-    // Use the API call wrapper to request the member's basic profile data
-    function getProfileData() {
-        IN.API.Raw("/people/~").result(onSuccess).error(onError);
-    }

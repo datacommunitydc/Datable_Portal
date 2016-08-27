@@ -19,6 +19,22 @@ module.exports = {
         return promise;
     },
 
+    socialLogIn: function (data) {
+        var promise = new Promise((resolve, reject) => {
+            request.post(baseUrl + '/accounts/social-login/')
+                .send(data)
+                .end(function(err, res){
+                    if (err || !res.ok) {
+                        reject();
+                    } else {
+                        resolve();
+                    }
+                });
+        });
+
+        return promise;
+    },
+
     logOut: function (type) {
         switch (type) {
             case AuthTypes.LOCAL:
@@ -26,7 +42,7 @@ module.exports = {
             case AuthTypes.LINKEDIN:
                 return new Promise((resolve, reject) => {
                     IN.User.logout();
-                    resolve();                        
+                    resolve();
                 });
             default:
                 break;
@@ -51,7 +67,7 @@ module.exports = {
                     }
                 });
         });
-        
+
         return promise;
     },
 };

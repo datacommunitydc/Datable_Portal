@@ -28,9 +28,9 @@ module.exports = {
     return promise;
   },
 
-  socialLogIn: function (type) {
+  socialLogIn: function (data) {
     var promise = new Promise((resolve, reject) => {
-        Auth.socialLogIn(type).then(() => {
+        Auth.socialLogIn(data).then(() => {
             this.loggedIn();
             resolve();
         }, () => { reject() });
