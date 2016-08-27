@@ -16,10 +16,10 @@ module.exports = {
           reject(err)
         });
       })
-        
+
       return promise;
-    },        
-    
+    },
+
     logOut: function() {
       var promise = new Promise((resolve, reject) => {
         WebAPI.logOut(localStorage.auth_type).then(() => {
@@ -39,16 +39,21 @@ module.exports = {
         return !!localStorage.token
     },
 
-    socialLogIn: function (type) {
-      switch(type) {
-        case AuthTypes.LINKEDIN:
-          var promise = new Promise((resolve, reject) => {
-            localStorage.token = 'xyz';
-            localStorage.auth_type = AuthTypes.LINKEDIN;
+    socialLogIn: function (data) {
+      var promise = new Promise((resolve, reject) => {
+        if (localStorage.token) {
             resolve();
-          });
-          return promise;
-      }
+        }
+        WebAPI.socialLogIn(data).then((res) => {
+          localStorage.token = res.token;
+          localStorage.auth_type = data.type;
+          resolve();
+        }, (err) => {
+          reject(err)
+        });
+      })
+
+      return promise;
     },
 
     getUser() {

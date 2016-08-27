@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
-var Route = ReactRouter.Route; 
+var Route = ReactRouter.Route;
 var browserHistory = ReactRouter.browserHistory; 
 var Header = require('./components/header');
 var Footer = require('./components/footer');
@@ -14,7 +14,7 @@ var Auth = require('./services/auth');
 
 function requireAuth(nextState, replace) {
     if (!Auth.loggedIn()) {
-        replace({ 
+        replace({
             pathname:'/login/',
             state: { nextPathname: '/' }
         })
@@ -23,7 +23,7 @@ function requireAuth(nextState, replace) {
 
 function isAuthenticated(nextState, replace) {
     if (Auth.loggedIn()) {
-        replace({ 
+        replace({
             pathname:'/',
         })
     }
