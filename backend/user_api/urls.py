@@ -11,6 +11,7 @@ router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^profile/$', views.ProfileViewSet.as_view()),
+    url(r'^sign_up/$', views.SignUp.as_view(), name="sign_up"),
+    #url(r'^profile/$', views.ProfileViewSet.as_view()),
     #url(r'^rest/facebook-login/$',csrf_exempt(RestGoogleLogin.as_view()),name='rest-facebook-login'),
 ]
