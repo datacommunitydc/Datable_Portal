@@ -1,3 +1,6 @@
+var proxy = '/datable_backend_app'
+
 module.exports = {
-  BaseUrl: 'http://localhost:8000'
+  proxy: proxy,
+  BaseUrl: 'http://localhost:3000' + proxy
 };

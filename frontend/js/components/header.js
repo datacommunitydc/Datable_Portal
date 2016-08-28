@@ -10,7 +10,7 @@ function getStates() {
 
 var header = React.createClass({
   getInitialState() {
-    return getStates(); 
+    return getStates();
   },
 
   contextTypes: {
@@ -23,6 +23,9 @@ var header = React.createClass({
 
   _onChange: function() {
      this.setState(getStates());
+
+    //
+    AuthStore.getProfile().then((res) => { console.log(res) });
   },
 
   logOut: function () {
@@ -31,7 +34,7 @@ var header = React.createClass({
 
   render: function() {
     return (
-      <header> 
+      <header>
         <div className='header-title'>Datable</div>
         <div className="user-details">
           { this.state.loggedIn ? (
