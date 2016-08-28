@@ -6,3 +6,6 @@ tmp
 db.sqlite3
 frontend/node_modules
 keys
+frontend/js/bundle.js
+frontend/js/bundle.min.js
+
