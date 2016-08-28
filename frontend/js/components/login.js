@@ -1,8 +1,8 @@
+var Linkedin = require('./linkedin');
 var React = require('react');
 var BrowserHistory = require('react-router').browserHistory;
 var AuthAction = require('../actions/auth');
 var AuthStore = require('../stores/auth');
-var proxy = require('../constants/webapi').proxy;
 
 var Login = React.createClass({
   contextTypes: {
@@ -24,7 +24,7 @@ var Login = React.createClass({
     return (
       <div className="login-container">
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+          <div className="form-group"> 
             <label>Username: </label>
             <input ref="username" placeholder="Username" className="form-control" defaultValue="" required/>
           </div>
@@ -38,9 +38,7 @@ var Login = React.createClass({
           <a href="/register">New User? Create Account</a>
         </div>
         <div className="marginT10">
-          <a href={ proxy + '/accounts/google/login/' } className="icon linkedin"><i className="fa fa-linkedin"></i></a>
-          <a className="icon github"><i className="fa fa-github"></i></a>
-          <a href={ proxy + '/accounts/twitter/login/' } className="icon linkedin"><i className="fa fa-twitter"></i></a>
+            <Linkedin />
         </div>
       </div>
     );

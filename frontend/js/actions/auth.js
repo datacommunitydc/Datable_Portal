@@ -59,8 +59,4 @@ module.exports = {
 
     return promise;
   },
-
-  getProfile: function() {
-    return Auth.getProfile();
-  }
 }
