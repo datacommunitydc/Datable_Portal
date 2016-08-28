@@ -1,12 +1,22 @@
 .icon {
-  height: 30px;
-  width: 30px;
+  padding: 5px 10px;
   border: none;
   outline: 0px;
   cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+}
+
+.login-container .icon {
+  margin-right: 10px;
 }
 
 .linkedin {
+  background: #4875B4;
+  color: white;
+}
+
+.github {
   background: #4875B4;
   color: white;
 }

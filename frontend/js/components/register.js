@@ -1,4 +1,3 @@
-var Linkedin = require('./linkedin');
 var React = require('react');
 var AuthAction = require('../actions/auth');
 var AuthStore = require('../stores/auth');
@@ -26,11 +25,11 @@ var Register = React.createClass({
     return (
       <div className="login-container">
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group"> 
+          <div className="form-group">
             <label>Username: </label>
             <input ref="username" placeholder="Username" className="form-control" defaultValue="" required/>
           </div>
-          <div className="form-group"> 
+          <div className="form-group">
             <label>Email: </label>
             <input type="email" ref="email" placeholder="Email" className="form-control" defaultValue="" required/>
           </div>
