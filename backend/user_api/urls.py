@@ -15,4 +15,5 @@ router.register(r'signup', views.SignUpViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-token-auth/', auth_views.obtain_auth_token),
+    url(r'verify-token', views.VerifyAccessToken.as_view()),
 ]

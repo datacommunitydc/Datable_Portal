@@ -118,3 +118,10 @@ REST_FRAMEWORK = {
 
 # custom
 SITE_ID = 1
+
+SOCIAL_AUTH_PROVIDERS = {
+    'linkedin': {
+        'client_id': '81mns0tgb37nzf',
+        'client_secret': '2RCcLlKZyGAbBzWO'
+    }
+}

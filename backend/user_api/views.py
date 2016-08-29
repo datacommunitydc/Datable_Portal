@@ -1,8 +1,13 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, mixins, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+import json
 
+from datable_project import exceptions
 from . import models
 from . import serializers
+import social_login
 
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -36,3 +41,30 @@ class ProfileViewSet(mixins.RetrieveModelMixin,
 
     def get_object(self):
         return self.request.user
+
+
+class VerifyAccessToken(APIView):
+    """
+    to verify access token according to type
+    """
+
+    def post(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        try:
+            provider = request.POST['provider']
+            access_token = request.POST['access_token']
+        except KeyError as error:
+            print('caught this error: ' + repr(error))
+            raise exceptions.VerifyTokenKeyError()
+        try:
+            klass = getattr(social_login, provider.title())
+            obj_cls = klass(access_token)
+            data = obj_cls.verify()
+        except AttributeError as error:
+            raise exceptions.NotImplementedEXception(
+                'UnimplementedExceptions: provider {} unimplemented '.format(provider)
+            )
+        return Response(json.loads(data))
+

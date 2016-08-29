@@ -17,3 +17,18 @@ class SignUpRequiredFieldException(DatableBaseExceptions):
     status_code = 400
     default_detail = 'Unable to signup required fields(username,' \
                      'email, first_name, last_name, password'
+
+
+class VerifyTokenKeyError(DatableBaseExceptions):
+    status_code = 400
+    default_detail = 'provider, access_token are required'
+
+
+class GoogleBadTokenError(DatableBaseExceptions):
+    status_code = 400
+    default_detail = 'google token cannot be verified'
+
+
+class NotImplementedEXception(DatableBaseExceptions):
+    status_code = 400
+    default_detail = 'Not Implemented Exception'
