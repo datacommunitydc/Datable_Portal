@@ -1,51 +1,23 @@
 var SocialConstants = require('../constants/socialauth.js');
-var AuthAction = require('../actions/auth.js');
 var React = require('react');
 
 var linkedin = React.createClass({
-  contextTypes: {
-      router: React.PropTypes.object.isRequired
-  },
-
-  componentDidMount: function () {
-    //IN.Event.on(IN, "auth", this.onAuthentication);
-    IN.init({
-        api_key: SocialConstants.LINKEDIN.CLIENT_ID
-    });
-  },
-
   render: function() {
     return (
-      <button className="icon linkedin" onClick={this.authenticate}><i className="fa fa-linkedin" aria-hidden="true"></i></button>
+      <button className='icon linkedin' onClick={this.openWindow}>
+        <i className="fa fa-linkedin" aria-hidden="true"></i>
+      </button>
     );
   },
 
-  authenticate() {
-    var self = this;
+  openWindow: function() {
+    var clientId = SocialConstants.LINKEDIN.CLIENT_ID,
+      redirect_uri = window.location.origin + '/linkedin-auth',
+      state = 'DCEeFWf45A53sdfKef424';
 
-    IN.User.authorize(function() {
-      IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress)?format=json").result(onSuccess).error(onError);
-    }, this);
+    var url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ clientId +'&redirect_uri='+ encodeURIComponent(redirect_uri) +'&state=' + state;
 
-    // Handle the successful return from the API call
-    function onSuccess(data) {
-      // var userData = {
-      //   email: data.emailAddress,
-      //   firstName: data.firstName,
-      //   lastName: data.lastName,
-      //   type: SocialConstants.AUTH_TYPES.LINKEDIN
-      // }
-      //
-      // AuthAction.socialLogIn(userData).then(() => {
-      //   self.context.router.replace('/');
-      // })
-      console.log("oauth token: " + IN.ENV.auth.oauth_token);
-    }
-
-    // Handle an error response from the API call
-    function onError(error) {
-        console.log(error);
-    }
+    window.open(url, '_linkedinAuth', 'resizable,scrollbars,status');
   }
 });
 
