@@ -29,6 +29,11 @@ class GoogleBadTokenError(DatableBaseExceptions):
     default_detail = 'google token cannot be verified'
 
 
+class BadTokenError(DatableBaseExceptions):
+    status_code = 400
+    default_detail = 'token cannot be verified'
+
+
 class NotImplementedEXception(DatableBaseExceptions):
     status_code = 400
     default_detail = 'Not Implemented Exception'
