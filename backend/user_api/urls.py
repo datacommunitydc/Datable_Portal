@@ -8,12 +8,13 @@ from . import views
 router = routers.DefaultRouter()
 #router.register(r'users', views.UserViewSet)
 #router.register(r'groups', views.GroupViewSet)
-router.register(r'profile', views.ProfileViewSet)
+#router.register(r'profile', views.ProfileViewSet)
 router.register(r'signup', views.SignUpViewSet)
 
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-token-auth/', auth_views.obtain_auth_token),
-    url(r'verify-token', views.VerifyAccessToken.as_view()),
+    url(r'verify-token/', views.VerifyAccessToken.as_view()),
+    url(r'profile/', views.ProfileViewSet.as_view()),
 ]

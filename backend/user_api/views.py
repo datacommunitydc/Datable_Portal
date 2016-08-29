@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.forms.models import model_to_dict
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -33,14 +34,19 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = serializers.UserSerializer
 
 
-class ProfileViewSet(mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     viewsets.GenericViewSet):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+# class ProfileViewSet(mixins.RetrieveModelMixin,
+#                      mixins.UpdateModelMixin,
+#                      viewsets.GenericViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = serializers.UserSerializer
+#
+#     def get_object(self):
+#         return self.request.user
 
-    def get_object(self):
-        return self.request.user
+
+class ProfileViewSet(APIView):
+    def get(self, request, format=None):
+        return Response(model_to_dict(self.request.user))
 
 
 class VerifyAccessToken(APIView):
@@ -66,5 +72,9 @@ class VerifyAccessToken(APIView):
             raise exceptions.NotImplementedEXception(
                 'UnimplementedExceptions: provider {} unimplemented '.format(provider)
             )
+
+        # check if user is already present if not create one and send the token
+
+
         return Response(json.loads(data))
 
