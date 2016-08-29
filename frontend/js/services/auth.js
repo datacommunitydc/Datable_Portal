@@ -9,7 +9,7 @@ module.exports = {
         }
 
         WebAPI.logIn(username, pass).then((res) => {
-          localStorage.token = res.token;
+          localStorage.token = res.body.token;
           localStorage.auth_type = AuthTypes.LOCAL;
           resolve();
         }, (err) => {
@@ -56,11 +56,11 @@ module.exports = {
       return promise;
     },
 
-    getUser() {
-
+    getProfile() {
+      return WebAPI.getProfile();
     },
 
-    register(username, email, password) {
-      return WebAPI.register(username, email, password);
+    register(firstName, lastName, username, email, password) {
+      return WebAPI.register(firstName, lastName, username, email, password);
     }
 }

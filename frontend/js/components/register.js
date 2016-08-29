@@ -11,11 +11,13 @@ var Register = React.createClass({
   handleSubmit: function(e) {
       e.preventDefault()
 
-      var username = this.refs.username.value
-      var email = this.refs.email.value
-      var password = this.refs.password.value
+      var firstName = this.refs.firstName.value,
+        lastName = this.refs.lastName.value,
+        username = this.refs.username.value,
+        email = this.refs.email.value,
+        password = this.refs.password.value;
 
-      AuthAction.register(username, email, password).then(() => {
+      AuthAction.register(firstName, lastName, username, email, password).then(() => {
         AuthAction.logIn(username, password).then(() => {
             this.context.router.replace('/');
         });
@@ -26,6 +28,14 @@ var Register = React.createClass({
     return (
       <div className="login-container">
         <form onSubmit={this.handleSubmit}>
+          <div className="form-group"> 
+            <label>First Name: </label>
+            <input ref="firstName" placeholder="First name" className="form-control" defaultValue="" required/>
+          </div>
+          <div className="form-group"> 
+            <label>Last Name: </label>
+            <input ref="lastName" placeholder="Last name" className="form-control" defaultValue="" required/>
+          </div>
           <div className="form-group"> 
             <label>Username: </label>
             <input ref="username" placeholder="Username" className="form-control" defaultValue="" required/>

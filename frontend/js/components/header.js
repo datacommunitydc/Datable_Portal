@@ -3,6 +3,7 @@ var AuthStore = require('../stores/auth');
 var AuthAction = require('../actions/auth');
 
 function getStates() {
+  AuthStore.getProfile().then((res) => { console.log(res) });
   return {
       loggedIn: AuthStore.loggedIn()
   };
