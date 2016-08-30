@@ -28,6 +28,12 @@ header {
   float: right;
 }
 
+.user-details .username {
+  color: blue;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .login-container {
   width: 40%;
   margin: 0px auto;

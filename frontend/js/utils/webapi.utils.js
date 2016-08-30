@@ -53,20 +53,8 @@ module.exports = {
         return promise;
     },
 
-    logOut: function (type) {
-        switch (type) {
-            case AuthTypes.LOCAL:
-                return new Promise((resolve, reject) => { resolve() });
-            case AuthTypes.LINKEDIN:
-                return new Promise((resolve, reject) => {
-                    IN.User.logout();
-                    resolve();
-                });
-            default:
-                break;
-        }
-
-        return new Promise((resolve, reject) => reject());
+    logOut: function () {
+        return new Promise((resolve, reject) => resolve());
     },
 
     getProfile: function () {

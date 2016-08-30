@@ -21,12 +21,10 @@ module.exports = {
 
     logOut: function() {
       var promise = new Promise((resolve, reject) => {
-        WebAPI.logOut(localStorage.auth_type).then(() => {
+        WebAPI.logOut().then(() => {
           delete localStorage.token;
-          delete localStorage.auth_type;
           resolve();
         }, (err) => {
-          console.log(err);
           reject();
         })
       });

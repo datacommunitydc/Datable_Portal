@@ -23,8 +23,8 @@ var AppStore = assign({}, EventEmitter.prototype, {
     if(this.loggedIn()) {
       return Auth.getProfile();
     }
-
-    return new Promise((resolve, reject) => { reject() });
+    
+    return Promise.resolve(null);
   }
 });
 
