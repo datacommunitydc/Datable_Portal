@@ -1,36 +1,31 @@
 var SocialConstants = require('../constants/socialauth.js');
-var AuthAction = require('../actions/auth.js');
 var React = require('react');
+var AuthAction = require('../actions/auth');
 
 var linkedin = React.createClass({
-  contextTypes: {
-      router: React.PropTypes.object.isRequired
-  },
-
-  componentDidMount: function () {
-    //IN.Event.on(IN, "auth", this.onAuthentication);      
-    IN.init({
-        api_key: SocialConstants.LINKEDIN.CLIENT_ID,
-        authorize: true
-    });
-  },
-
   render: function() {
     return (
-      <script type="in/Login"></script>
+      <button className='icon linkedin' onClick={this.openWindow}>
+        <i className="fa fa-linkedin" aria-hidden="true"></i>
+      </button>
     );
   },
 
-  onAuthentication() {
-      AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN).then(() => {
-        this.context.router.replace('/');
-      });
+  openWindow: function() {
+    var clientId = SocialConstants.LINKEDIN.CLIENT_ID,
+      redirect_uri = window.location.origin + '/linkedin-auth',
+      state = 'DCEeFWf45A53sdfKef424';
+
+    window.setAccessToken = function (accessToken) {
+      if(accessToken) {
+        AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN, accessToken);
+      }
+    }
+
+    var url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ clientId +'&redirect_uri='+ encodeURIComponent(redirect_uri) +'&state=' + state;
+
+    window.open(url, '_linkedinAuth', 'resizable,scrollbars,status');
   }
 });
 
 module.exports = linkedin;
-    
-    // Use the API call wrapper to request the member's basic profile data
-    function getProfileData() {
-        IN.API.Raw("/people/~").result(onSuccess).error(onError);
-    }

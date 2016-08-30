@@ -28,9 +28,9 @@ module.exports = {
     return promise;
   },
 
-  socialLogIn: function (type) {
+  socialLogIn: function (provider, accessToken) {
     var promise = new Promise((resolve, reject) => {
-        Auth.socialLogIn(type).then(() => {
+        Auth.socialLogIn(provider, accessToken).then(() => {
             this.loggedIn();
             resolve();
         }, () => { reject() });
@@ -50,13 +50,17 @@ module.exports = {
     return promise;
   },
 
-  register: function(username, email, password) {
+  register: function(firstName, lastName, username, email, password) {
     var promise = new Promise((resolve, reject) => {
-        Auth.register(username, email, password).then(() => {
+        Auth.register(firstName, lastName, username, email, password).then(() => {
             resolve();
         }, () => { reject() });
     });
 
     return promise;
+  },
+
+  getProfile() {
+    return Auth.getProfile();
   },
 }

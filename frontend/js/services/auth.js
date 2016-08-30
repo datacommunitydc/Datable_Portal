@@ -9,25 +9,22 @@ module.exports = {
         }
 
         WebAPI.logIn(username, pass).then((res) => {
-          localStorage.token = res.token;
-          localStorage.auth_type = AuthTypes.LOCAL;
+          localStorage.token = res.body.token;
           resolve();
         }, (err) => {
           reject(err)
         });
       })
-        
+
       return promise;
-    },        
-    
+    },
+
     logOut: function() {
       var promise = new Promise((resolve, reject) => {
-        WebAPI.logOut(localStorage.auth_type).then(() => {
+        WebAPI.logOut().then(() => {
           delete localStorage.token;
-          delete localStorage.auth_type;
           resolve();
         }, (err) => {
-          console.log(err);
           reject();
         })
       });
@@ -39,23 +36,27 @@ module.exports = {
         return !!localStorage.token
     },
 
-    socialLogIn: function (type) {
-      switch(type) {
-        case AuthTypes.LINKEDIN:
-          var promise = new Promise((resolve, reject) => {
-            localStorage.token = 'xyz';
-            localStorage.auth_type = AuthTypes.LINKEDIN;
+    socialLogIn: function (provider, accessToken) {
+      var promise = new Promise((resolve, reject) => {
+        if (localStorage.token) {
             resolve();
-          });
-          return promise;
-      }
+        }
+        WebAPI.socialLogIn(provider, accessToken).then((res) => {
+          localStorage.token = res.body.token;
+          resolve(res);
+        }, (err) => {
+          reject(err)
+        });
+      })
+
+      return promise;
     },
 
-    getUser() {
-
+    getProfile() {
+      return WebAPI.getProfile();
     },
 
-    register(username, email, password) {
-      return WebAPI.register(username, email, password);
+    register(firstName, lastName, username, email, password) {
+      return WebAPI.register(firstName, lastName, username, email, password);
     }
 }
