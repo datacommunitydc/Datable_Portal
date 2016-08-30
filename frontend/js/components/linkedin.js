@@ -1,5 +1,6 @@
 var SocialConstants = require('../constants/socialauth.js');
 var React = require('react');
+var AuthAction = require('../actions/auth');
 
 var linkedin = React.createClass({
   render: function() {
@@ -14,6 +15,12 @@ var linkedin = React.createClass({
     var clientId = SocialConstants.LINKEDIN.CLIENT_ID,
       redirect_uri = window.location.origin + '/linkedin-auth',
       state = 'DCEeFWf45A53sdfKef424';
+
+    window.setAccessToken = function (accessToken) {
+      if(accessToken) {
+        AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN, accessToken);
+      }
+    }
 
     var url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ clientId +'&redirect_uri='+ encodeURIComponent(redirect_uri) +'&state=' + state;
 

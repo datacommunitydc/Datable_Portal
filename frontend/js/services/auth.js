@@ -10,7 +10,6 @@ module.exports = {
 
         WebAPI.logIn(username, pass).then((res) => {
           localStorage.token = res.body.token;
-          localStorage.auth_type = AuthTypes.LOCAL;
           resolve();
         }, (err) => {
           reject(err)
@@ -39,15 +38,14 @@ module.exports = {
         return !!localStorage.token
     },
 
-    socialLogIn: function (data) {
+    socialLogIn: function (provider, accessToken) {
       var promise = new Promise((resolve, reject) => {
         if (localStorage.token) {
             resolve();
         }
-        WebAPI.socialLogIn(data).then((res) => {
-          localStorage.token = res.token;
-          localStorage.auth_type = data.type;
-          resolve();
+        WebAPI.socialLogIn(provider, accessToken).then((res) => {
+          localStorage.token = res.body.token;
+          resolve(res);
         }, (err) => {
           reject(err)
         });

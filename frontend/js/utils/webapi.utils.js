@@ -34,15 +34,18 @@ module.exports = {
         return promise;
     },
 
-    socialLogIn: function (data) {
+    socialLogIn: function (provider, accessToken) {
         var promise = new Promise((resolve, reject) => {
-            request.post(baseUrl + '/accounts/social-login/')
-                .send(data)
+            request.post(baseUrl + '/verify-token/')
+                .send({
+                    provider: provider,
+                    access_token: accessToken
+                })
                 .end(function(err, res){
                     if (err || !res.ok) {
-                        reject();
+                        reject(err);
                     } else {
-                        resolve();
+                        resolve(res);
                     }
                 });
         });
