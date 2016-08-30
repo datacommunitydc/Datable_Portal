@@ -77,12 +77,15 @@ class VerifyAccessToken(APIView):
         user_data = utility.prepare_user_dict_from_social_data(user_data)
         # check if user is already present if not create one and send the token
         try:
-            if User.objects.get(email=user_data['email']):
-                print('attach token')
-                print(User.objects.get(email=user_data['email']))
-        except User.DoesNotExist:
+            user_obj = User.objects.get(email=user_data['email'])
+            if user_obj:
+                token, created = Token.objects.get_or_create(user=user_obj)
+                user_data['token'] = token.key
 
-            print('create user and attach')
+        except User.DoesNotExist:
+            user_obj = utility.create_user(user_data)
+            token, created = Token.objects.get_or_create(user=user_obj)
+            user_data['token'] = token.key
 
         return Response(user_data)
 
