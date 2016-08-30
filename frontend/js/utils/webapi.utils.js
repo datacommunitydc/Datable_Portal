@@ -20,7 +20,7 @@ function getCookie(cname) {
 module.exports = {
     logIn: function (username, password) {
         var promise = new Promise((resolve, reject) => {
-            request.post(baseUrl + '/api-token-auth/')
+            request.post(baseUrl + '/login/')
                 .send({username: username, password: password})
                 .end(function(err, res){
                     if (err || !res.ok) {
@@ -68,7 +68,7 @@ module.exports = {
 
     getProfile: function () {
       var promise = new Promise((resolve, reject) => {
-          request.post(baseUrl + '/profile/')
+          request.get(baseUrl + '/profile/')
               .set('Authorization', 'Token ' + localStorage.token )
               .end(function(err, res){
                   if (err || !res.ok) {

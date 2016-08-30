@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from datable_project.exceptions import SignUpRequiredFieldException
+from datable_project import exceptions
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,7 +23,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             user.set_password(validated_data['password'])
             user.save()
         except KeyError:
-            raise SignUpRequiredFieldException()
+            raise exceptions.SignUpRequiredFieldException()
 
         return user
 

@@ -1,3 +1,4 @@
+import json
 from urllib2 import Request, urlopen, URLError
 
 from datable_project.exceptions import GoogleBadTokenError
@@ -19,5 +20,5 @@ class Google:
             if e.code == 401:
                 # Unauthorized - bad token
                 raise GoogleBadTokenError()
-            return res.read()
-        return res.read()
+            return json.loads(res.read())
+        return json.loads(res.read())

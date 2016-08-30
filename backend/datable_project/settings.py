@@ -113,15 +113,20 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        #'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
     'PAGE_SIZE': 10
 }
 
 # custom
 SITE_ID = 1
 
-SOCIAL_AUTH_PROVIDERS = {
-    'linkedin': {
-        'client_id': '81mns0tgb37nzf',
-        'client_secret': '2RCcLlKZyGAbBzWO'
-    }
+SOCIAL_USER_DATA_MAPPER = {
+    'first_name': ['firstName', 'given_name'],
+    'last_name': ['lastName', 'family_name'],
+    'email': ['emailAddress', ],
+    'username': ['firstName', 'given_name'],  # making username form first_name
 }
+

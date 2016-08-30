@@ -1,13 +1,14 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Group
 from django.forms.models import model_to_dict
-from rest_framework import viewsets, mixins, permissions
+from rest_framework import viewsets, mixins, permissions, status
+from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import json
 
-from datable_project import exceptions
 from . import models
 from . import serializers
+from datable_project import exceptions, utility
 import social_login
 
 
@@ -34,14 +35,14 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = serializers.UserSerializer
 
 
-# class ProfileViewSet(mixins.RetrieveModelMixin,
-#                      mixins.UpdateModelMixin,
-#                      viewsets.GenericViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = serializers.UserSerializer
-#
-#     def get_object(self):
-#         return self.request.user
+class UserViewSet(mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     viewsets.GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 class ProfileViewSet(APIView):
@@ -53,6 +54,7 @@ class VerifyAccessToken(APIView):
     """
     to verify access token according to type
     """
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
         """
@@ -67,14 +69,43 @@ class VerifyAccessToken(APIView):
         try:
             klass = getattr(social_login, provider.title())
             obj_cls = klass(access_token)
-            data = obj_cls.verify()
+            user_data = obj_cls.verify()
         except AttributeError as error:
             raise exceptions.NotImplementedEXception(
                 'UnimplementedExceptions: provider {} unimplemented '.format(provider)
             )
-
+        user_data = utility.prepare_user_dict_from_social_data(user_data)
         # check if user is already present if not create one and send the token
+        try:
+            if User.objects.get(email=user_data['email']):
+                print('attach token')
+                print(User.objects.get(email=user_data['email']))
+        except User.DoesNotExist:
+
+            print('create user and attach')
+
+        return Response(user_data)
 
 
-        return Response(json.loads(data))
+class LoginView(APIView):
+    permission_classes = ()
+    model = Token
+
+    def post(self, request):
+        username = request.data.get('username', None)
+        password = request.data.get('password', None)
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+
+            if user:
+                if not user.is_active:
+                    raise exceptions.UnAuthorizedError('User account is disabled.')
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key})
+            else:
+                raise exceptions.UnAuthorizedError('Unable to login with provided credentials.')
+        else:
+            raise exceptions.UnAuthorizedError('Must include "username" and "password"')
+
 

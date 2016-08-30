@@ -37,3 +37,8 @@ class BadTokenError(DatableBaseExceptions):
 class NotImplementedEXception(DatableBaseExceptions):
     status_code = 400
     default_detail = 'Not Implemented Exception'
+
+
+class UnAuthorizedError(DatableBaseExceptions):
+    status_code = 401
+    default_detail = 'Unable to login'
