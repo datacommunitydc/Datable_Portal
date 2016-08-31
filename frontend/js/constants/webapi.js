@@ -1,7 +1,10 @@
-var proxy = 'datable_backend_app'
-var linkedinProxy = 'linkedin'
+var url = window.location.origin;
+var proxy = 'datable_backend_app';
+var linkedinProxy = 'linkedin';
+var meetupProxy = 'meetup';
 
 module.exports = {
-  BaseUrl: 'http://localhost:3000/' + proxy,
-  LinkedinUrl: 'http://localhost:3000/' + linkedinProxy
+  BaseUrl: `${url}/${proxy}`,
+  LinkedinUrl: `${url}/${linkedinProxy}`,
+  MeetupUrl: `${url}/${meetupProxy}`
 };

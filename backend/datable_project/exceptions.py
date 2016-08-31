@@ -3,39 +3,34 @@ from django.utils.encoding import force_text
 
 
 class DatableBaseExceptions(APIException):
-    status_code = 400
     default_detail = 'Unknown Error'
 
-    def __init__(self, detail=None):
+    def __init__(self, detail=None, status_code=400):
         if detail is not None:
             self.detail = force_text(detail)
         else:
             self.detail = force_text(self.default_detail)
+        self.status_code = status_code
 
 
 class SignUpRequiredFieldException(DatableBaseExceptions):
-    status_code = 400
     default_detail = 'Unable to signup required fields(username,' \
                      'email, first_name, last_name, password'
 
 
 class VerifyTokenKeyError(DatableBaseExceptions):
-    status_code = 400
     default_detail = 'provider, access_token are required'
 
 
 class GoogleBadTokenError(DatableBaseExceptions):
-    status_code = 400
     default_detail = 'google token cannot be verified'
 
 
 class BadTokenError(DatableBaseExceptions):
-    status_code = 400
     default_detail = 'token cannot be verified'
 
 
 class NotImplementedEXception(DatableBaseExceptions):
-    status_code = 400
     default_detail = 'Not Implemented Exception'
 
 
