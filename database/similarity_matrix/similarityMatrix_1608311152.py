@@ -156,7 +156,10 @@ def method_5_EuclidDistSimilarity(v1, v2):
     [3]
     '''
     if len(v1) == len(v2):
-        print "Euclidean Distance similarity: ", sqrt( np.sum(np.square( np.array(v1)-np.array(v2) )) )
+        all_yes = np.array([1]*len(v1))
+        all_no  = np.array([0]*len(v1))
+        max_diff = sqrt( np.sum(np.square( all_yes-all_no )) )
+        print "Euclidean Distance similarity: ", sqrt( np.sum(np.square( np.array(v1)-np.array(v2) )) ) / max_diff
     else:
         print "Error: Input vectors of different lengths."
 
