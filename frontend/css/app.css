@@ -11,6 +11,11 @@
   color: white;
 }
 
+.meetup {
+  background: #4875B4;
+  color: white;
+}
+
 header {
   padding: 10px 0px;
 }
@@ -45,4 +50,12 @@ header {
 
 .marginT10 {
   margin-top: 10px;
+}
+
+.social-auth-btns {
+  margin-top: 10px; 
+}
+
+.social-auth-btns > *:not(:first-child) {
+  margin-left: 10px;
 }
