@@ -1,6 +1,7 @@
 var SocialConstants = require('../constants/socialauth.js');
 var React = require('react');
 var AuthAction = require('../actions/auth');
+var BrowserHistory = require('react-router').browserHistory;
 
 var linkedin = React.createClass({
   render: function() {
@@ -18,7 +19,9 @@ var linkedin = React.createClass({
 
     window.setAccessToken = function (accessToken) {
       if(accessToken) {
-        AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN, accessToken);
+        AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.LINKEDIN, accessToken).then(() => {
+          BrowserHistory.push('/')
+        });
       }
     }
 

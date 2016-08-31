@@ -1,5 +1,5 @@
 import json
-from urllib2 import Request, urlopen, URLError
+import requests
 from datable_project.exceptions import BadTokenError
 
 #https://api.linkedin.com/v1/people/~:?oauth2_access_token=AQXxasONr6ZJcECoOnhwDMqYdPCdLhYn-j4SRdQLRQwpeuUKaxLIkYS-cWe4kvxpPBpE5GlniuZEkQn4lOo0KPf7XYzputTEG1cxm3e3e5RyprmdeGAAYmIjJpM67T-_AFZUXeF-jvL5X7grQbWY4Dmlv5xGnoND5nsoas7LZJKsyhhILqQ&format=json
@@ -16,12 +16,11 @@ class Linkedin:
 
     def verify(self):
         """if verified return user else raise error"""
-        req = Request(self.url)
-        try:
-            res = urlopen(req)
-        except URLError, e:
-            if e.code == 401:
-                # Unauthorized - bad token
-                raise BadTokenError('Linkedin: Token cannot be verified')
-            return json.loads(res.read())
-        return json.loads(res.read())
+
+        req = requests.get(self.url)
+
+        if req.status_code == 200:
+            return json.loads(req.content)
+        else:
+            msg = 'Linkedin: Token cannot be verified ' + req.content
+            raise BadTokenError(msg, req.status_code)
