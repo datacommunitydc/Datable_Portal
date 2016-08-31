@@ -1,8 +1,9 @@
-var Linkedin = require('./linkedin');
 var React = require('react');
 var BrowserHistory = require('react-router').browserHistory;
 var AuthAction = require('../actions/auth');
 var AuthStore = require('../stores/auth');
+var Linkedin = require('./linkedin');
+var Meetup = require('./meetup');
 
 var Login = React.createClass({
   contextTypes: {
@@ -37,8 +38,9 @@ var Login = React.createClass({
         <div className="marginT10">
           <a href="/register">New User? Create Account</a>
         </div>
-        <div className="marginT10">
+        <div className="social-auth-btns">
             <Linkedin />
+            <Meetup />
         </div>
       </div>
     );
