@@ -37,6 +37,7 @@ module.exports = {
     socialLogIn: function (provider, accessToken) {
         var promise = new Promise((resolve, reject) => {
             request.post(baseUrl + '/verify-token/')
+                .set('Content-Type', 'application/x-www-form-urlencoded')
                 .send({
                     provider: provider,
                     access_token: accessToken
