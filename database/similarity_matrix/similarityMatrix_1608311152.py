@@ -60,12 +60,17 @@ def importMongoDB():
         A measure derived from a consensus matrix
         Other ideas: Delaunay triangulation, Hamming distance or variation
     '''
-vector_1 = [1,1,0,1,0]
-vector_2 = [1,1,0,1,0]
-vector_3 = [1,0,0,0,0]
-vector_4 = [0,0,0,0,0]
-vector_5 = [1,1,1,1,1]
-vector_6 = [0,0,1,0,1] #opposite of vector_1
+vector_1 = [True,True,False,True,False]
+vector_2 = [True,True,False,True,False]
+vector_3 = [True,False,False,False,False]
+vector_4 = [False,False,False,False,False]
+vector_5 = [True,True,True,True,True]
+vector_6 = [False,False,True,False,True] #opposite of vector_1
+
+num_questions = len(vector_1)
+all_yes = np.array([1]*num_questions)
+all_no  = np.array([0]*num_questions)
+MAX_DIFF = np.sqrt( np.sum(np.square( all_yes-all_no )) )
 
 def compute_sumSq(v1, v2):
     if len(v1) == len(v2):
@@ -149,17 +154,36 @@ def method_4_DiceCoefSimilarity(v1, v2):
     else:
         print "Error: Input vectors of different lengths."
 
-def method_5_EuclidDistSimilarity(v1, v2):
+def compare_T1(v1,v2):
+    # Compare all questions of a certain type, and return value of 0-1
+    return answer_diffs # value 0-1
+
+def question_similarity(v1,v2):
+
+    equal = np.array(v1)==np.array(v2) # Future tests look at each question separately as they are much more complicated that T/F
+    xx = np.where(equal)[0]
+    answer_diffs = np.array([0]*len(v1))
+    answer_diffs[xx] = 1
+
+    # return vectors between 0 and 1 for each question
+    return answer_diffs
+
+def candidate_similarity(diff):
+
+    return np.sqrt( np.sum(np.square( np.array(diff) )) ) / MAX_DIFF
+
+def candidate_matrix():
+
+    return #matrix of NxN candidates with answer difference values between 0-1
+
+def method_5_EuclidDistSimilarity(v1,v2):
     '''
     Euclidean distance.
     
     [3]
     '''
     if len(v1) == len(v2):
-        all_yes = np.array([1]*len(v1))
-        all_no  = np.array([0]*len(v1))
-        max_diff = sqrt( np.sum(np.square( all_yes-all_no )) )
-        print "Euclidean Distance similarity: ", sqrt( np.sum(np.square( np.array(v1)-np.array(v2) )) ) / max_diff
+        print "Euclidean Distance similarity: ", np.sqrt( np.sum(np.square( np.array(v1)-np.array(v2) )) ) / MAX_DIFF
     else:
         print "Error: Input vectors of different lengths."
 
