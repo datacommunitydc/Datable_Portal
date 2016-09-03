@@ -1,7 +1,8 @@
 module.exports = {
   AUTH_TYPES: {
     LOCAL: 'local',
-    LINKEDIN: 'linkedin'
+    LINKEDIN: 'linkedin',
+    MEETUP: 'meetup'
   },
 
   LINKEDIN: {

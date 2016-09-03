@@ -19,7 +19,9 @@ var meetup = React.createClass({
 
     window.setAccessToken = function (accessToken) {
       if(accessToken) {
-        console.log("meetup token: " + accessToken);
+        AuthAction.socialLogIn(SocialConstants.AUTH_TYPES.MEETUP, accessToken).then(() => {
+          BrowserHistory.push('/')
+        });
       }
     }
 
