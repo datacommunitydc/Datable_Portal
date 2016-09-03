@@ -4,6 +4,7 @@ var AuthAction = require('../actions/auth');
 var AuthStore = require('../stores/auth');
 var Linkedin = require('./linkedin');
 var Meetup = require('./meetup');
+var Twitter = require('./twitter');
 
 var Login = React.createClass({
   contextTypes: {
@@ -41,6 +42,7 @@ var Login = React.createClass({
         <div className="social-auth-btns">
             <Linkedin />
             <Meetup />
+            <Twitter />
         </div>
       </div>
     );
