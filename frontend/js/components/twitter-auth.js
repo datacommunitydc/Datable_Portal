@@ -19,7 +19,7 @@ function getCode(key) {
   }
 }
 
-var meetup = React.createClass({
+var twitter = React.createClass({
   componentDidMount: function () {
     var authToken = getCode('oauth_token');
     if(authToken) {
@@ -35,4 +35,4 @@ var meetup = React.createClass({
   }
 });
 
-module.exports = meetup;
+module.exports = twitter;

@@ -5,6 +5,7 @@ var AuthStore = require('../stores/auth');
 var Linkedin = require('./linkedin');
 var Meetup = require('./meetup');
 var Twitter = require('./twitter');
+var Github = require('./github');
 
 var Login = React.createClass({
   contextTypes: {
@@ -43,6 +44,7 @@ var Login = React.createClass({
             <Linkedin />
             <Meetup />
             <Twitter />
+            <Github />
         </div>
       </div>
     );

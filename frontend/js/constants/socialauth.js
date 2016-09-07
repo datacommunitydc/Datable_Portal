@@ -3,7 +3,8 @@ module.exports = {
     LOCAL: 'local',
     LINKEDIN: 'linkedin',
     MEETUP: 'meetup',
-    TWITTER: 'twitter'
+    TWITTER: 'twitter',
+    GITHUB: 'github'
   },
 
   LINKEDIN: {
@@ -21,5 +22,10 @@ module.exports = {
     SECRET: '4DfR5USwoYtPwLcXcysmuHbFKnedr4DvaDGzSV181CBlmsC8Yu',
     ACCESS_TOKEN: '3539821700-BWpcfR2L60lrQz2OPUXCpOVTYuWjaxyZRIIUxQ5',
     //ACCESS_SECRET: 'MZ354N04YDsOVJAFeePLPKd2OizA7uehdyLNXZLPpVnRd'
+  },
+
+  GITHUB: {
+    CLIENT_ID: '5bf89e201a16fcfcdcee',
+    CLIENT_SECRET: '2f7f13f3974c1b7dbd9444a2fa2805067147a677'
   }
 }
