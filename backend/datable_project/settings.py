@@ -124,7 +124,7 @@ REST_FRAMEWORK = {
 SITE_ID = 1
 
 SOCIAL_USER_DATA_MAPPER = {
-    'first_name': ['firstName', 'given_name'],
+    'first_name': ['firstName', 'given_name', 'name'],
     'last_name': ['lastName', 'family_name'],
     'email': ['emailAddress', ],
     'username': ['firstName', 'given_name'],  # making username form first_name
