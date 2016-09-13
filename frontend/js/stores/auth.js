@@ -23,7 +23,15 @@ var AppStore = assign({}, EventEmitter.prototype, {
     if(this.loggedIn()) {
       return Auth.getProfile();
     }
-    
+
+    return Promise.resolve(null);
+  },
+
+  getQuestions: function() {
+    if(this.loggedIn()) {
+      return Auth.getQuestions();
+    }
+
     return Promise.resolve(null);
   }
 });

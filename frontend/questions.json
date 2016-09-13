@@ -1,0 +1,44 @@
+{
+    "sections": [{
+        "title": "Datable Candidate Application",
+        "questions": [{
+            "id": 1,
+            "question": "First Name",
+            "type": "text"
+          }, {
+            "id": 2,
+            "question": "Last Name",
+            "type": "text"
+          }, {
+            "id": 3,
+            "question": "Email Address",
+            "type": "text"
+          }, {
+            "id": 4,
+            "question": "Github Profile URL",
+            "type": "text"
+          }, {
+            "id": 5,
+            "question": "LinkedIn Profile URL",
+            "type": "text"
+          }, {
+            "id": 6,
+            "question": "Meetup Profile URL",
+            "type": "text"
+          }, {
+            "id": 7,
+            "question": "Twitter Profile URL",
+            "type": "text"
+          }, {
+            "id": 8,
+            "question": "Are you currently looking for a position or willing to be contacted about positions?",
+            "type": "radio",
+            "options": [ { "text": "yes", "value": "yes" }, { "text": "no", "value": "no"} ]
+          }, {
+            "id": 9,
+            "question": "What Degrees have you earned?",
+            "type": "checkbox",
+            "options": [{ "text": "No Degree", "value": "Nodegree" }, { "text": "Associates", "value": "Associates" }]
+          }]
+    }]
+}

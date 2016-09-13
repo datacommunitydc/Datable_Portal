@@ -89,4 +89,20 @@ module.exports = {
 
         return promise;
     },
+
+    getQuestions: function() {
+       var promise = new Promise((resolve, reject) => {
+           request.get('questions.json')
+               .set('Authorization', 'Token ' + localStorage.token )
+               .end(function(err, res){
+                   if (err || !res.ok) {
+                       reject();
+                   } else {
+                       resolve(res);
+                   }
+               });
+       });
+
+       return promise;
+    }
 };

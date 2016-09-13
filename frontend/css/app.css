@@ -1,3 +1,7 @@
+body {
+  margin: 0px 33px;
+}
+
 .icon {
   height: 30px;
   width: 30px;
@@ -53,7 +57,7 @@ header {
 }
 
 .social-auth-btns {
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .social-auth-btns > *:not(:first-child) {

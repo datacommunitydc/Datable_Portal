@@ -58,5 +58,9 @@ module.exports = {
 
     register(firstName, lastName, username, email, password) {
       return WebAPI.register(firstName, lastName, username, email, password);
+    },
+
+    getQuestions() {
+      return WebAPI.getQuestions();
     }
 }
