@@ -113,6 +113,10 @@ server {
   location /meetup/ {
       proxy_pass https://secure.meetup.com/;
   }
+  
+  location /github/ {
+      proxy_pass https://github.com/;
+  }
 }
 
 ```
