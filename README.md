@@ -1,4 +1,4 @@
-# Datable_Portal
+# Full Stack Agents Database Portal
 
 #### Backend Setup Guide
 * Install virtualenvwrapper
